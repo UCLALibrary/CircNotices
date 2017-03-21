@@ -29,7 +29,7 @@ public abstract class CircNotice
     patron = new Patron( tokens );
     library = 
         new Library( tokens, props.getProperty( "contact.".concat( location ).concat( ".email" ) ) );
-    items = new Vector();
+    items = new Vector<Item>();
     noticeDate = tokens[ 17 ].trim();
   }
 

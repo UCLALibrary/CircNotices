@@ -1,7 +1,13 @@
 package edu.ucla.library.libservices.voyager.notices.objects.beans;
 
+import edu.ucla.library.libservices.voyager.notices.objects.db.DateGetter;
+
+import java.util.Properties;
+
 public class Item
 {
+  private Properties props;
+  private String patronID = null;
   private String title = null;
   private String author = null;
   private String barcode = null;
@@ -18,14 +24,16 @@ public class Item
   {
   }
 
-  public Item( String[] tokens )
+  public Item( String[] tokens, Properties props )
   {
+    patronID = tokens[ 3 ].trim();
     title = tokens[ 28 ].trim();
     author = tokens[ 29 ].trim();
     barcode = tokens[ 30 ].trim();
     callNumber = tokens[ 31 ].trim();
     enumChron = tokens[ 32 ].trim();
-
+    this.props = props;
+    
     setOtherFields( tokens );
   }
 
@@ -111,7 +119,7 @@ public class Item
 
   private void setDueOrRecallFields( String[] tokens )
   {
-    dueDate = tokens[ 33 ].trim();
+    dueDate = new DateGetter( props ).getOverdueDate( patronID, barcode ); // tokens[ 33 ].trim();
 
     if ( tokens.length >= 35 )
       proxyLastName = tokens[ 34 ].trim();
@@ -123,7 +131,7 @@ public class Item
 
   private void setOverDueFields( String[] tokens )
   {
-    dueDate = tokens[ 33 ].trim();
+    dueDate = new DateGetter( props ).getOverdueDate( patronID, barcode ); // tokens[ 33 ].trim();
 
     if ( tokens.length >= 35 )
       sequence = tokens[ 34 ].trim();

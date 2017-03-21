@@ -1,6 +1,6 @@
 package edu.ucla.library.libservices.voyager.notices.main;
 
-import edu.ucla.library.digital.dlcs.util.StringUtil;
+//import edu.ucla.library.digital.dlcs.util.StringUtil;
 
 import edu.ucla.library.libservices.voyager.notices.objects.beans.Item;
 import edu.ucla.library.libservices.voyager.notices.objects.db.NoticeLogger;
@@ -91,18 +91,18 @@ public class NoticeGenerator
           System.out.println( "skipping a fee/fine notice: " + input );
         }
         else if ( tokens[ 2 ].trim().equals( "" ) || tokens[ 2 ] == null ||
-                  tokens[ 2 ].trim().length() == 0 )
+                  tokens[ 2 ].trim().length() == 0 || tokens[ 2 ].trim().equals( "null" ) )
         {
           //log as a skip
           System.out.println( "skipping a notice without email: " +
                               input );
         }
-        else if ( ! StringUtil.isValidEmailAddress( tokens[ 2 ].trim() ) )
-        {
-		  //log as a skip
-          System.out.println( "skipping a notice with invalid email address: " +
-                              input );
-		}
+        //else if ( ! StringUtil.isValidEmailAddress( tokens[ 2 ].trim() ) )
+        //{
+	  //log as a skip
+          //System.out.println( "skipping a notice with invalid email address: " +
+                              //input );
+	//}
         else
         {
           Integer patronId;
@@ -186,7 +186,7 @@ public class NoticeGenerator
               theNotice =
                   new CourtesyDueNotice( tokens, props, printLocation );
           }
-          theNotice.addItem( new Item( tokens ) );
+          theNotice.addItem( new Item( tokens, props ) );
         }
       }
     }

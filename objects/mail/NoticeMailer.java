@@ -40,8 +40,8 @@ public class NoticeMailer
       session = Session.getInstance( sysProps, null );
       msg = new MimeMessage( session );
       msg.setFrom( new InternetAddress( theNotice.getLibrary().getLibraryEmail() ) );
-      //toAddress = new InternetAddress( theNotice.getPatron().getEmail() );
-      toAddress = new InternetAddress( "drickard1967@library.ucla.edu" );
+      toAddress = new InternetAddress( theNotice.getPatron().getEmail() );
+      //toAddress = new InternetAddress( "davidr615@hotmail.com" );
       msg.setRecipient( Message.RecipientType.TO, toAddress );
       msg.setSubject( theNotice.getSubject() );
       msg.setHeader( "X-Mailer", 
