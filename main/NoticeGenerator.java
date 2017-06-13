@@ -90,19 +90,18 @@ public class NoticeGenerator
           // log as a skip
           System.out.println( "skipping a fee/fine notice: " + input );
         }
-        else if ( tokens[ 2 ].trim().equals( "" ) || tokens[ 2 ] == null ||
-                  tokens[ 2 ].trim().length() == 0 || tokens[ 2 ].trim().equals( "null" ) )
+        else if ( tokens[ 2 ].trim().equals( "" ) || tokens[ 2 ] == null || tokens[ 2 ].trim().length() == 0 ||
+                  tokens[ 2 ].trim().equals( "null" ) || !tokens[ 2 ].trim().contains( "@" ) )
         {
           //log as a skip
-          System.out.println( "skipping a notice without email: " +
-                              input );
+          System.out.println( "skipping a notice without email: " + input );
         }
         //else if ( ! StringUtil.isValidEmailAddress( tokens[ 2 ].trim() ) )
         //{
-	  //log as a skip
-          //System.out.println( "skipping a notice with invalid email address: " +
-                              //input );
-	//}
+        //log as a skip
+        //System.out.println( "skipping a notice with invalid email address: " +
+        //input );
+        //}
         else
         {
           Integer patronId;
@@ -117,8 +116,7 @@ public class NoticeGenerator
               }
               else
               {
-                theNotice =
-                    new CancellationNotice( tokens, props, printLocation );
+                theNotice = new CancellationNotice( tokens, props, printLocation );
                 cancels.put( patronId, theNotice );
               }
               break;
@@ -129,8 +127,7 @@ public class NoticeGenerator
               }
               else
               {
-                theNotice =
-                    new ItemAvailableNotice( tokens, props, printLocation );
+                theNotice = new ItemAvailableNotice( tokens, props, printLocation );
                 availables.put( patronId, theNotice );
               }
               break;
@@ -141,8 +138,7 @@ public class NoticeGenerator
               }
               else
               {
-                theNotice =
-                    new OverdueNotice( tokens, props, printLocation );
+                theNotice = new OverdueNotice( tokens, props, printLocation );
                 overdues.put( patronId, theNotice );
               }
               break;
@@ -153,8 +149,7 @@ public class NoticeGenerator
               }
               else
               {
-                theNotice =
-                    new RecallNotice( tokens, props, printLocation );
+                theNotice = new RecallNotice( tokens, props, printLocation );
                 recalls.put( patronId, theNotice );
               }
               break;
@@ -165,8 +160,7 @@ public class NoticeGenerator
               }
               else
               {
-                theNotice =
-                    new RecallOverdueNotice( tokens, props, printLocation );
+                theNotice = new RecallOverdueNotice( tokens, props, printLocation );
                 recallOverdues.put( patronId, theNotice );
               }
               break;
@@ -177,14 +171,12 @@ public class NoticeGenerator
               }
               else
               {
-                theNotice =
-                    new CourtesyDueNotice( tokens, props, printLocation );
+                theNotice = new CourtesyDueNotice( tokens, props, printLocation );
                 renews.put( patronId, theNotice );
               }
               break;
             default:
-              theNotice =
-                  new CourtesyDueNotice( tokens, props, printLocation );
+              theNotice = new CourtesyDueNotice( tokens, props, printLocation );
           }
           theNotice.addItem( new Item( tokens, props ) );
         }
@@ -196,8 +188,7 @@ public class NoticeGenerator
     }
   }
 
-  private static void sendNotices( TreeMap<Integer, CircNotice> notices,
-                                   String type )
+  private static void sendNotices( TreeMap<Integer, CircNotice> notices, String type )
   {
     Iterator iter;
     NoticeMailer theMailer;
@@ -223,9 +214,9 @@ public class NoticeGenerator
     }
     catch ( IOException ioe )
     {
-      System.err.println( "Unable to open properties file: " +
-                          propsFilename );
-      ioe.printStackTrace();
+      System.err.println( "Unable to open properties file: " + propsFilename );
+      System.err.println( ioe.getMessage() );
+      //ioe.printStackTrace();
       System.exit( 1 );
     }
   }

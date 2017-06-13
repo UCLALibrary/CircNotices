@@ -119,7 +119,9 @@ public class Item
 
   private void setDueOrRecallFields( String[] tokens )
   {
-    dueDate = new DateGetter( props ).getOverdueDate( patronID, barcode ); // tokens[ 33 ].trim();
+    dueDate = new DateGetter( props ).getOverdueDate( patronID, barcode ); // 
+    if ( dueDate == null ) 
+      dueDate = tokens[ 33 ].trim();
 
     if ( tokens.length >= 35 )
       proxyLastName = tokens[ 34 ].trim();

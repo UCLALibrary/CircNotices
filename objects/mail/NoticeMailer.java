@@ -55,7 +55,8 @@ public class NoticeMailer
       // TODO: better logging of errors
       System.err.println( "Error sending message to: " + 
                           theNotice.getPatron().getEmail() );
-      e.printStackTrace();
+      System.err.println( e.getMessage() );
+      //e.printStackTrace();
       //System.err.println( theNotice.generateNotice() );
     }
   }

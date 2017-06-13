@@ -40,7 +40,8 @@ public class NoticeLogger
     }
     catch ( IOException ioe )
     {
-      ioe.printStackTrace();
+      System.err.println( ioe.getMessage() );
+      //ioe.printStackTrace();
     }
   }
 

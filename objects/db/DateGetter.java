@@ -55,7 +55,17 @@ public class DateGetter
   {
     String overdueDate;
     overdueDate = null;
-    overdueDate = ( String ) new JdbcTemplate(ds).queryForObject( QUERY, new Object[]{patronID,barcode}, String.class );
+
+    try
+    {
+      overdueDate = ( String ) new JdbcTemplate(ds).queryForObject( QUERY, new Object[]{patronID,barcode}, String.class );
+    }
+    catch (Exception e)
+    {
+      System.err.println( "error with patron " + patronID + " and item " + barcode );
+      System.err.println( e.getMessage() );
+      //e.printStackTrace();
+    }
     return overdueDate;
   }
 }
